@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>traffke.com - Dobre seu ROI com Inteligência Artificial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluindo Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d1a; /* Fundo escuro */
+            color: #d1d1f0; /* Cor do texto padrão */
+            overflow-x: hidden; /* Evita a barra de rolagem horizontal */
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-neon {
+            background-image: linear-gradient(to right, #0ff, #f0f);
+        }
+        .text-neon-cyan {
+            color: #0ff;
+            text-shadow: 0 0 3px rgba(0, 255, 255, 0.7), 0 0 8px rgba(0, 255, 255, 0.3);
+        }
+        .text-neon-magenta {
+            color: #f0f;
+            text-shadow: 0 0 3px rgba(255, 0, 255, 0.7), 0 0 8px rgba(255, 0, 255, 0.3);
+        }
+        .bg-cyber {
+            background-color: rgba(30, 30, 50, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        /* Efeitos Visuais Aprimorados */
+
+        /* Animação para brilho de fundo */
+        @keyframes pulse-neon {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(255, 0, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.8);
+            }
+        }
+        
+        /* Nova animação de pulso para o botão de diagnóstico, em tons de azul claro */
+        @keyframes pulse-blue {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(41, 121, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(41, 121, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.8);
+            }
+        }
+        .animate-pulse-blue {
+            animation: pulse-blue 4s infinite ease-in-out;
+        }
+        
+        /* Nova animação de pulso para o botão "Comece Agora" branco */
+        @keyframes pulse-white {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5);
+            }
+        }
+        .animate-pulse-white {
+            animation: pulse-white 4s infinite ease-in-out;
+        }
+
+        /* Aplica animação de brilho na borda dos cartões */
+        .card-effect {
+            border: 2px solid;
+            border-image: linear-gradient(to right, #0ff, #f0f) 1;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: pulse-neon 4s infinite ease-in-out;
+        }
+
+        /* Efeito de hover aprimorado */
+        .card-effect:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(255, 0, 255, 0.8);
+            border-image: linear-gradient(to right, #f0f, #0ff) 1; /* Inverte o gradiente no hover */
+        }
+        
+        /* Animação de entrada para seções */
+        .fade-in-up {
+            animation: fadeInUp 1s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Estilos do Ícone do Chatbot */
+        #chat-icon-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+        }
+        #chat-icon {
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-image: linear-gradient(to right, #0ff, #f0f);
+            box-shadow: 0 0 10px #0ff, 0 0 20px #f0f;
+            transition: transform 0.3s ease;
+        }
+        #chat-icon:hover {
+            transform: scale(1.1);
+        }
+        .text-neon-glow {
+            text-shadow: 0 0 5px #f0f, 0 0 10px #f0f;
+        }
+        .faq-question {
+            background-color: #1a1a30;
+            border: 1px solid #3e3e60;
+            cursor: pointer;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .faq-question:hover {
+            border-color: #0ff;
+        }
+        .faq-answer {
+            background-color: #0d0d1a;
+            padding: 1rem;
+            border: 1px solid #3e3e60;
+            border-top: none;
+            display: none;
+        }
+        .team-member-card {
+            background-color: rgba(30, 30, 50, 0.5);
+            border: 2px solid;
+            border-image: linear-gradient(to right, #0ff, #f0f) 1;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        }
+        
+        /* Efeito de partículas no fundo */
+        .bg-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="4" height="4"%3E%3Cpath d="M1 1h1v1H1V1zm2 2h1v1H3V3z" fill="%234A4A6A" opacity=".3"%3E%3C/path%3E%3C/svg%3E');
+            animation: background-move 60s linear infinite;
+        }
+
+        @keyframes background-move {
+            from { background-position: 0 0; }
+            to { background-position: 400px 400px; }
+        }
+        
+        /* Novo gradiente para o botão de diagnóstico */
+        .bg-gradient-blue {
+            background-image: linear-gradient(to right, #0ff, #2979ff);
+        }
+        
+        /* Efeitos para links de navegação com visual de "aba" aprimorado */
+        .nav-link-effect {
+            position: relative;
+            z-index: 10;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-link-effect::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-image: linear-gradient(to right, #0ff, #f0f);
+            border-radius: 4px 4-x 0 0;
+            transition: height 0.3s ease-in-out;
+            z-index: -1;
+        }
+
+        .nav-link-effect:hover {
+            color: #1a1a30; /* Cor do texto no hover para contrastar com o fundo */
+        }
+
+        .nav-link-effect:hover::after {
+            height: 100%;
+        }
+        
+        /* Efeito específico para o botão de CTA branco */
+        .cta-white-button {
+            border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+        .cta-white-button:hover {
+            transform: scale(1.05);
+            background-color: white;
+            color: #1a1a30;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .contact-form input, .contact-form textarea {
+            background-color: #1a1a30;
+            border: 1px solid #3e3e60;
+            color: #d1d1f0;
+        }
+        .message-link a {
+            color: #0ff;
+            text-decoration: underline;
+        }
+        
+        /* Estilo para a caixa de mensagem de busca */
+        #search-message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(30, 30, 50, 0.9);
+            border: 1px solid #0ff;
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="bg-[#0d0d1a] text-[#d1d1f0]">
+
+    <!-- Navbar/Cabeçalho Cyberpunk sem o Logo -->
+    <nav class="sticky top-0 z-50 bg-[#0d0d1a]/80 backdrop-blur-md border-b border-[#2a2a4a]">
+        <div class="container mx-auto px-6 py-4 flex flex-wrap justify-center items-center">
+            
+            <!-- Seção das Abas de Navegação -->
+            <div class="flex-grow flex justify-center items-center">
+                <div class="flex flex-wrap justify-center space-x-6 items-center text-sm font-medium">
+                    <a href="#tecnologia" class="nav-link-effect hover:text-neon-cyan">Tecnologia</a>
+                    <a href="#servicos" class="nav-link-effect hover:text-neon-cyan">Serviços</a>
+                    <a href="#produtos" class="nav-link-effect hover:text-neon-cyan">Produtos</a>
+                    <a href="#recursos" class="nav-link-effect hover:text-neon-cyan">Recursos</a>
+                    <a href="#casos" class="nav-link-effect hover:text-neon-cyan">Estudos de Caso</a>
+                    <a href="#beneficios" class="nav-link-effect hover:text-neon-cyan">Benefícios</a>
+                    <a href="#comparativo" class="nav-link-effect hover:text-neon-cyan">Comparativo</a>
+                    <a href="#depoimentos" class="nav-link-effect hover:text-neon-cyan">Depoimentos</a>
+                    <a href="#planos" class="nav-link-effect hover:text-neon-cyan">Planos</a>
+                    <a href="#equipe" class="nav-link-effect hover:text-neon-cyan">Equipe</a>
+                    <a href="#faq" class="nav-link-effect hover:text-neon-cyan">FAQ</a>
+                    <a href="#blog" class="nav-link-effect hover:text-neon-cyan">Blog</a>
+                    <a href="#contato" class="nav-link-effect hover:text-neon-cyan">Contato</a>
+                </div>
+            </div>
+
+            <!-- Botão "Comece Agora" -->
+            <!-- O link foi atualizado para levar diretamente para a seção de contato -->
+            <a href="#contato" class="bg-transparent cta-white-button text-white font-bold py-2 px-6 rounded-full animate-pulse-white flex-shrink-0 ml-6">
+                Comece Agora
+            </a>
+        </div>
+    </nav>
+
+    <!-- Seção 1: Proposta de Valor (Hero) -->
+    <header class="relative overflow-hidden py-24 md:py-32">
+        <div class="bg-particles"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0d0d1a] to-purple-950 opacity-50"></div>
+        <div class="container mx-auto px-6 text-center relative z-10 fade-in-up">
+            <!-- Logo e Nome do Site -->
+            <a href="#" class="flex flex-col items-center justify-center mb-6">
+                <img src="https://bafybeiacmc5mfalt7i4xkokyvcxtd3ffno55tau5g2gw2bnypuykum6xqi.ipfs.w3s.link/8a60b7d7-c385-4180-8129-2f4b97149ab7.png" alt="traffke.com Logo" class="w-40 mb-4" onerror="this.onerror=null;this.src='https://placehold.co/160x100/1f1f3a/d1d1f0?text=Logo';">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-wider mb-2">
+                    traffke<span class="text-neon-cyan">.com</span>
+                </h1>
+            </a>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight">
+                Dobre seu <span class="text-white">ROI</span> e Escalone seu Tráfego Pago com a <span class="text-neon-magenta">Inteligência Artificial</span> da traffke.com
+            </h1>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto mb-10 text-gray-400">
+                Cansado de queimar dinheiro em anúncios? Nossa IA otimiza suas campanhas 24/7, garantindo o melhor resultado para o seu negócio.
+            </p>
+            
+            <!-- Barra de Busca Adicionada aqui -->
+            <div class="flex justify-center mb-12">
+                <div class="flex items-center space-x-3 bg-cyber rounded-full shadow-lg p-3 w-full max-w-xl">
+                    <svg class="h-6 w-6 text-neon-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input 
+                        id="search-input"
+                        type="text" 
+                        placeholder="Pesquisar..." 
+                        class="w-full bg-transparent border-none outline-none focus:ring-0 text-white placeholder-gray-500"
+                    />
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                <a href="#contato" class="bg-gradient-blue text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 animate-pulse-blue">
+                    Quero um Diagnóstico Gratuito!
+                </a>
+                <a href="#planos" class="bg-transparent border border-[#0ff] text-neon-cyan font-bold py-3 px-8 rounded-full transform transition-all duration-300 hover:bg-[#0ff] hover:text-gray-900">
+                    Conheça Nossos Planos
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Caixa de mensagem para a busca -->
+    <div id="search-message" class="hidden">
+        <p class="text-center font-bold" id="search-message-text"></p>
+    </div>
+
+    <!-- Seção de Serviços -->
+    <section id="servicos" class="py-20 md:py-32 bg-[#12122a] searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta">
+                Nossos Serviços Impulsionados por IA
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-magenta">Otimização de Campanhas</h3>
+                    <p class="text-gray-400 text-sm">Automatizamos a otimização de lances, segmentação e posicionamento para maximizar seu ROI em plataformas como Google Ads e Facebook Ads.</p>
+                </div>
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-magenta">Análise Preditiva de Mercado</h3>
+                    <p class="text-gray-400 text-sm">Utilizamos modelos preditivos para identificar as próximas tendências e oportunidades de mercado, permitindo que você se antecipe à concorrência.</p>
+                </div>
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-magenta">Geração de Criativos</h3>
+                    <p class="text-gray-400 text-sm">A nossa IA gera variações de anúncios, títulos e descrições, testando e selecionando as combinações de maior performance para você.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Produtos -->
+    <section id="produtos" class="py-20 md:py-32 searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-cyan">
+                Nossos Produtos
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-cyan">traffke Core</h3>
+                    <p class="text-gray-400 text-sm">A plataforma central de otimização de campanhas, com IA que aprende e se adapta ao seu público e mercado.</p>
+                </div>
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-cyan">traffke Insights</h3>
+                    <p class="text-gray-400 text-sm">Módulo de análise preditiva que oferece insights acionáveis sobre tendências de mercado e comportamento do consumidor.</p>
+                </div>
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-cyan">traffke Creative</h3>
+                    <p class="text-gray-400 text-sm">Ferramenta de IA para geração e otimização de criativos, títulos e descrições de anúncios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Recursos -->
+    <section id="recursos" class="py-20 md:py-32 bg-[#12122a] searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta">
+                Principais Recursos
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-xl font-bold mb-2 text-neon-magenta">Automação de Lances</h3>
+                    <p class="text-gray-400 text-sm">Otimizamos seus lances em tempo real para garantir o melhor custo-benefício.</p>
+                </div>
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-xl font-bold mb-2 text-neon-magenta">Análise de Concorrentes</h3>
+                    <p class="text-gray-400 text-sm">Analise a estratégia de seus concorrentes e encontre novas oportunidades.</p>
+                </div>
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-xl font-bold mb-2 text-neon-magenta">Segmentação Inteligente</h3>
+                    <p class="text-gray-400 text-sm">Identificamos os segmentos de público mais promissores para suas campanhas.</p>
+                </div>
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-xl font-bold mb-2 text-neon-magenta">Testes A/B Automatizados</h3>
+                    <p class="text-gray-400 text-sm">Nossa IA realiza e analisa testes A/B de forma contínua para encontrar a melhor combinação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Tecnologia -->
+    <section id="tecnologia" class="py-20 md:py-32 searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-cyan">
+                A Tecnologia por Trás da Mágica
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Módulo 1 -->
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-cyan">Algoritmos de Otimização</h3>
+                    <p class="text-gray-400 text-sm">Nossos modelos de machine learning analisam bilhões de dados em tempo real para ajustar lances, segmentação e criativos automaticamente, maximizando seu retorno sobre o investimento (ROI).</p>
+                </div>
+                <!-- Módulo 2 -->
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-cyan">Análise de Dados Preditiva</h3>
+                    <p class="text-gray-400 text-sm">Prevemos tendências de mercado e o comportamento do consumidor, permitindo que suas campanhas se antecipem à concorrência e capturem as melhores oportunidades antes que elas se tornem evidentes para os outros.</p>
+                </div>
+                <!-- Módulo 3 -->
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-cyan">Interface de Comando</h3>
+                    <p class="text-gray-400 text-sm">Um painel de controle intuitivo e personalizável onde você visualiza todas as métricas em tempo real, com gráficos interativos e projeções futuras, como em um console de nave espacial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Estudos de Caso -->
+    <section id="casos" class="py-20 md:py-32 bg-[#12122a] searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-cyan">
+                Estudos de Caso
+            </h2>
+            <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <!-- Caso 1 -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-cyan/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Empresa de E-commerce de Eletrônicos</h3>
+                    <p class="text-gray-400 text-sm mb-4">Com a otimização da nossa IA, a CyberShop aumentou as vendas em 150% e reduziu o custo por conversão em 40% em 3 meses.</p>
+                    <a href="https://www.cartacapital.com.br/do-micro-ao-macro/empresas-aumentam-conversao-em-ate-38-com-ia-nas-vendas-veja-como-funciona/" target="_blank" class="text-neon-magenta hover:underline font-bold">Ver estudo completo &rarr;</a>
+                </div>
+                <!-- Caso 2 -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-magenta/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Agência de Marketing B2B</h3>
+                    <p class="text-gray-400 text-sm mb-4">A TechGrowth otimizou suas campanhas de geração de leads, resultando em um aumento de 200% em leads qualificados e um crescimento de 50% na base de clientes.</p>
+                    <a href="https://agenciamutum.com/blog/geracao-de-leads-b2b/" target="_blank" class="text-neon-cyan hover:underline font-bold">Ver estudo completo &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Benefícios -->
+    <section id="beneficios" class="py-20 md:py-32 searchable-section">
+        <div class="container mx-auto px-6 fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-16 tracking-tight text-neon-magenta">
+                Por que a traffke.com é a sua melhor escolha?
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Benefício 1 -->
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <div class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full mb-6 mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-2 text-white">Otimização 24/7</h3>
+                    <p class="text-center text-gray-400 text-sm">Nossa IA trabalha o tempo todo, ajustando lances e criativos para o máximo de performance, mesmo enquanto você descansa.</p>
+                </div>
+                <!-- Benefício 2 -->
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <div class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full mb-6 mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13m-6 0H9m12 0v8a2 2 0 01-2 2H9a2 2 0 01-2-2v-8m8-13v8a2 2 0 01-2 2H7a2 2 0 01-2-2v-8"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-2 text-white">Análise Preditiva</h3>
+                    <p class="text-center text-gray-400 text-sm">Prevemos o comportamento do seu público para segmentar com precisão cirúrgica, direcionando seus anúncios para quem realmente compra.</p>
+                </div>
+                <!-- Benefício 3 -->
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <div class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full mb-6 mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.121-2.121a2 2 0 010 2.828m2.121-5.656a7 7 0 010 9.9"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-2 text-white">Criação de Anúncios</h3>
+                    <p class="text-center text-gray-400 text-sm">Gere novas variações de títulos, textos e criativos com um clique, baseados em dados de performance, para encontrar a combinação perfeita.</p>
+                </div>
+                <!-- Benefício 4 -->
+                <div class="p-8 bg-cyber rounded-2xl card-effect">
+                    <div class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full mb-6 mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-4m3 0v4m3-4v4m-9-8h10m4 0V9m-4 0V7m-4 0H9m-4 0h12m-6 0V5m-6 0a2 2 0 012-2h4l2 2h4a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-2 text-white">Relatórios Transparentes</h3>
+                    <p class="text-center text-gray-400 text-sm">Tenha acesso a painéis intuitivos com os dados mais importantes, para que você saiba exatamente onde seu dinheiro está sendo investido.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Comparativo Atualizada -->
+    <section id="comparativo" class="py-20 md:py-32 bg-[#12122a] searchable-section">
+        <div class="container mx-auto px-6 fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-16 tracking-tight text-neon-cyan">
+                traffke.com vs. Concorrência: A Vantagem da IA
+            </h2>
+            <div class="grid lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+                <!-- Coluna 1: Método Tradicional -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,0,0.5)]">
+                    <h3 class="text-2xl font-bold mb-6 text-white text-center">Método Tradicional</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-red-500 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <span>Otimização manual e demorada.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-red-500 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <span>Estratégias baseadas em suposições.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-red-500 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <span>Alto custo e baixa escalabilidade.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Coluna 2: Outras Empresas de Marketing -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(128,0,128,0.5)]">
+                    <h3 class="text-2xl font-bold mb-6 text-white text-center">Outras Empresas de Marketing</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-yellow-500 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Otimização limitada a horários comerciais.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-yellow-500 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span>Estratégias focadas em processos, não em IA.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-yellow-500 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                            <span>Escalabilidade limitada pelo fator humano.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Coluna 3: traffke.com -->
+                <div class="p-8 bg-cyber text-white rounded-2xl border-l-4 border-green-400 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(152,251,152,0.5)]">
+                    <h3 class="text-2xl font-bold mb-6 text-white text-center">traffke.com</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-green-400 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Otimização 24/7 com IA autônoma.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-green-400 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Decisões baseadas em dados preditivos.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-6 w-6 text-green-400 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Escalabilidade infinita e previsível.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Depoimentos -->
+    <section id="depoimentos" class="py-20 md:py-32 searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta">
+                O que Nossos Clientes Dizem
+            </h2>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Depoimento 1 -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-cyan/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300">
+                    <p class="text-gray-400 italic mb-4">"A traffke.com transformou a nossa estratégia de tráfego. Conseguimos dobrar o ROI em menos de seis meses. É inacreditável o poder dessa IA!"</p>
+                    <div class="flex items-center justify-center">
+                        <img src="https://placehold.co/50x50/1f1f3a/d1d1f0?text=JD" alt="Foto de Perfil de John Doe" class="rounded-full mr-4 border-2 border-neon-cyan/50">
+                        <div>
+                            <h4 class="font-bold text-white">John Doe</h4>
+                            <p class="text-sm text-gray-400">CEO, Tech Solutions</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Depoimento 2 -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-magenta/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] transition-all duration-300">
+                    <p class="text-gray-400 italic mb-4">"Nossa equipe agora pode focar em criatividade e estratégia, enquanto a IA da traffke cuida da otimização. O resultado é mais lucro e menos trabalho manual."</p>
+                    <div class="flex items-center justify-center">
+                        <img src="https://placehold.co/50x50/1f1f3a/d1d1f0?text=AS" alt="Foto de Perfil de Anne Smith" class="rounded-full mr-4 border-2 border-neon-magenta/50">
+                        <div>
+                            <h4 class="font-bold text-white">Anne Smith</h4>
+                            <p class="text-sm text-gray-400">Diretora de Marketing, Creative Hub</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Depoimento 3 -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-cyan/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300">
+                    <p class="text-gray-400 italic mb-4">"A plataforma é incrivelmente intuitiva e poderosa. Os insights preditivos nos deram uma vantagem competitiva enorme. Altamente recomendado!"</p>
+                    <div class="flex items-center justify-center">
+                        <img src="https://placehold.co/50x50/1f1f3a/d1d1f0?text=MP" alt="Foto de Perfil de Mark Paulson" class="rounded-full mr-4 border-2 border-neon-cyan/50">
+                        <div>
+                            <h4 class="font-bold text-white">Mark Paulson</h4>
+                            <p class="text-sm text-gray-400">Fundador, Global Ecom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Planos -->
+    <section id="planos" class="py-20 md:py-32 bg-[#12122a] searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-cyan">
+                Escolha o Plano Perfeito para o seu Negócio
+            </h2>
+            <div class="grid lg:grid-cols-3 gap-8 items-stretch max-w-5xl mx-auto">
+                <!-- Plano Básico -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-gray-500 hover:scale-105 hover:shadow-[0_0_20px_rgba(150,150,150,0.5)] transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Plano Básico</h3>
+                    <p class="text-4xl font-extrabold text-neon-cyan mb-2">R$500<span class="text-sm text-gray-400">/mês</span></p>
+                    <p class="text-gray-400 text-sm mb-6">Ideal para pequenos negócios e iniciantes em tráfego pago.</p>
+                    <ul class="space-y-2 text-left mb-8">
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Otimização de 1 campanha</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Relatórios diários</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Suporte via e-mail</li>
+                    </ul>
+                    <a href="#contato" class="bg-transparent cta-white-button text-white font-bold py-2 px-6 rounded-full w-full block text-center">Começar</a>
+                </div>
+                <!-- Plano Pro (Mais Popular) -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-magenta hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] transition-all duration-300 relative z-10">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-neon text-white text-xs font-bold px-4 py-1 rounded-full uppercase">Mais Popular</div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Plano Pro</h3>
+                    <p class="text-4xl font-extrabold text-neon-magenta mb-2">R$5.000<span class="text-sm text-gray-400">/mês</span></p>
+                    <p class="text-gray-400 text-sm mb-6">Para agências e empresas que buscam crescimento acelerado.</p>
+                    <ul class="space-y-2 text-left mb-8">
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Otimização de até 5 campanhas</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Análise Preditiva de Mercado</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Geração de Criativos com IA</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Suporte prioritário via chat</li>
+                    </ul>
+                    <a href="#contato" class="bg-gradient-neon text-white font-bold py-2 px-6 rounded-full w-full block text-center">Começar</a>
+                </div>
+                <!-- Plano Enterprise -->
+                <div class="p-8 bg-cyber rounded-2xl border-l-4 border-neon-cyan/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Plano Enterprise</h3>
+                    <p class="text-4xl font-extrabold text-neon-cyan mb-2">Personalizado</p>
+                    <p class="text-gray-400 text-sm mb-6">Soluções customizadas para grandes empresas e necessidades complexas.</p>
+                    <ul class="space-y-2 text-left mb-8">
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Otimização de campanhas ilimitada</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Integrações customizadas</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Manager de contas dedicado</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Relatórios avançados</li>
+                    </ul>
+                    <a href="#contato" class="bg-transparent cta-white-button text-white font-bold py-2 px-6 rounded-full w-full block text-center">Contratar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Equipe -->
+    <section id="equipe" class="py-20 md:py-32 searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-16 tracking-tight text-neon-magenta">
+                Nossa Equipe de Mentes Brilhantes
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Membro 1 -->
+                <div class="team-member-card p-6 rounded-2xl">
+                    <img src="https://placehold.co/150x150/1f1f3a/d1d1f0?text=M" alt="Foto de Marcio" class="rounded-full mx-auto mb-4 border-2 border-neon-cyan/50">
+                    <h3 class="text-xl font-bold text-white mb-1">Marcio</h3>
+                    <p class="text-neon-cyan text-sm mb-4">CEO & Marketing</p>
+                    <p class="text-sm text-gray-400">Visionário de IA, lidera a equipe com paixão por tecnologia e marketing.</p>
+                </div>
+                <!-- Membro 2 -->
+                <div class="team-member-card p-6 rounded-2xl">
+                    <img src="https://placehold.co/150x150/1f1f3a/d1d1f0?text=FL" alt="Foto de F. Luiz" class="rounded-full mx-auto mb-4 border-2 border-neon-magenta/50">
+                    <h3 class="text-xl font-bold text-white mb-1">F. Luiz</h3>
+                    <p class="text-neon-magenta text-sm mb-4">Líder & CEO</p>
+                    <p class="text-sm text-gray-400">Responsável por garantir que a plataforma atenda às necessidades do mercado.</p>
+                </div>
+                <!-- Membro 3 -->
+                <div class="team-member-card p-6 rounded-2xl">
+                    <img src="https://placehold.co/150x150/1f1f3a/d1d1f0?text=JS" alt="Foto de Jerri Stark" class="rounded-full mx-auto mb-4 border-2 border-neon-cyan/50">
+                    <h3 class="text-xl font-bold text-white mb-1">Jerri Stark</h3>
+                    <p class="text-neon-cyan text-sm mb-4">CEO e Programador</p>
+                    <p class="text-sm text-gray-400">Especialista em machine learning, ele constrói a arquitetura da nossa IA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de FAQ -->
+    <section id="faq" class="py-20 md:py-32 bg-[#12122a] searchable-section">
+        <div class="container mx-auto px-6 fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-16 tracking-tight text-neon-cyan">
+                Perguntas Frequentes
+            </h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Pergunta 1 -->
+                <div class="rounded-2xl overflow-hidden">
+                    <div class="faq-question rounded-t-2xl" onclick="toggleFaq('faq-q1')">
+                        <h3 class="text-lg font-bold text-white">Como a IA da traffke.com funciona?</h3>
+                        <i class="fa fa-chevron-down text-neon-cyan"></i>
+                    </div>
+                    <div id="faq-q1" class="faq-answer rounded-b-2xl">
+                        <p class="text-gray-400 text-sm">Nossa IA utiliza algoritmos de machine learning para analisar dados de campanha em tempo real, otimizando lances, segmentação e criativos de forma autônoma para maximizar o ROI.</p>
+                    </div>
+                </div>
+                <!-- Pergunta 2 -->
+                <div class="rounded-2xl overflow-hidden">
+                    <div class="faq-question" onclick="toggleFaq('faq-q2')">
+                        <h3 class="text-lg font-bold text-white">Quais plataformas de anúncios vocês suportam?</h3>
+                        <i class="fa fa-chevron-down text-neon-cyan"></i>
+                    </div>
+                    <div id="faq-q2" class="faq-answer">
+                        <p class="text-gray-400 text-sm">Atualmente, suportamos as principais plataformas de tráfego pago, como Google Ads, Facebook Ads e Instagram Ads. Estamos trabalhando para expandir nosso suporte para outras plataformas em breve.</p>
+                    </div>
+                </div>
+                <!-- Pergunta 3 -->
+                <div class="rounded-2xl overflow-hidden">
+                    <div class="faq-question" onclick="toggleFaq('faq-q3')">
+                        <h3 class="text-lg font-bold text-white">Qual é a diferença entre a traffke.com e outras agências?</h3>
+                        <i class="fa fa-chevron-down text-neon-cyan"></i>
+                    </div>
+                    <div id="faq-q3" class="faq-answer">
+                        <p class="text-gray-400 text-sm">A principal diferença é a nossa abordagem baseada em IA. Enquanto agências tradicionais dependem de otimização manual, nossa plataforma opera 24/7 de forma autônoma, usando dados para tomar decisões mais rápidas e precisas, resultando em retornos muito superiores.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Blog (chamada para ação) -->
+    <section id="blog" class="py-20 md:py-32 searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-8 tracking-tight text-neon-cyan">
+                Confira Nossas Últimas Postagens
+            </h2>
+            <p class="text-xl max-w-3xl mx-auto mb-12 text-gray-400">
+                Fique por dentro das novidades sobre inteligência artificial, marketing digital e as últimas tendências do mercado.
+            </p>
+            <!-- AQUI: O link foi alterado para o URL fornecido -->
+            <a href="https://academia360.eduzz.com/artigo/marketing-digital-o-que-deve-mudar-com-a-chegada-de-ferramentas-de-inteligencia-artificial" class="bg-gradient-neon text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105" target="_blank">
+                Acessar Blog
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção de Contato/CTA final (atualizada com links de contato) -->
+    <section id="contato" class="py-20 md:py-32 bg-[#12122a] searchable-section">
+        <div class="container mx-auto px-6 text-center fade-in-up">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight text-neon-magenta">
+                Fale Conosco
+            </h2>
+            <p class="text-xl max-w-2xl mx-auto mb-8 text-gray-400">
+                Estamos prontos para revolucionar seu tráfego pago. Entre em contato por um de nossos canais digitais ou ligue para nós.
+            </p>
+            
+            <div class="flex flex-wrap justify-center items-center gap-6 mb-8 text-lg font-medium">
+                <!-- E-mail de Contato -->
+                <a href="mailto:contato@traffke.com" class="flex items-center text-neon-cyan hover:text-white transition-colors duration-300 transform hover:scale-105">
+                    <i class="fa fa-envelope mr-2"></i> contato@traffke.com
+                </a>
+                
+                <!-- Telefone 1 -->
+                <a href="tel:+5527999843190" class="flex items-center text-neon-cyan hover:text-white transition-colors duration-300 transform hover:scale-105">
+                    <i class="fa fa-phone-alt mr-2"></i> +55 27 99984-3190
+                </a>
+                
+                <!-- Telefone 2 -->
+                <a href="tel:+5527997448058" class="flex items-center text-neon-cyan hover:text-white transition-colors duration-300 transform hover:scale-105">
+                    <i class="fa fa-phone-alt mr-2"></i> +55 27 99744-8058
+                </a>
+                
+                <!-- Telefone 3 -->
+                <a href="tel:+5527998695029" class="flex items-center text-neon-cyan hover:text-white transition-colors duration-300 transform hover:scale-105">
+                    <i class="fa fa-phone-alt mr-2"></i> +55 27 99869-5029
+                </a>
+            </div>
+            
+            <div class="flex justify-center space-x-6 text-3xl">
+                <!-- Ícone do WhatsApp -->
+                <a href="https://api.whatsapp.com/send?phone=5527999843190&text=Ol%C3%A1,%20quero%20mais%20informa%C3%A7%C3%B5es!" target="_blank" class="text-neon-cyan hover:text-white transform transition-all duration-300 hover:scale-110" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <!-- Ícone do Instagram -->
+                <a href="https://www.instagram.com/traffke.ceo/" target="_blank" class="text-neon-cyan hover:text-white transform transition-all duration-300 hover:scale-110" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <!-- Ícone do X (Twitter) -->
+                <a href="https://x.com/TraffkeS" target="_blank" class="text-neon-cyan hover:text-white transform transition-all duration-300 hover:scale-110" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <!-- Ícone do LinkedIn -->
+                <a href="https://www.linkedin.com/in/traffke-seo-64531437a/" target="_blank" class="text-neon-cyan hover:text-white transform transition-all duration-300 hover:scale-110" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé (atualizado com mídia social e contatos) -->
+    <footer class="bg-[#0d0d1a] py-8 border-t border-[#2a2a4a]">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
+                <p>&copy; 2023 traffke.com. Todos os direitos reservados.</p>
+                <a href="#" class="text-neon-cyan hover:underline">Termos de Serviço</a>
+                <a href="#" class="text-neon-cyan hover:underline">Política de Privacidade</a>
+                <a href="mailto:contato@traffke.com" class="text-neon-cyan hover:underline">contato@traffke.com</a>
+                <a href="tel:+5527999843190" class="text-neon-cyan hover:underline">+55 27 99984-3190</a>
+            </div>
+            
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="https://api.whatsapp.com/send?phone=5527999843190&text=Ol%C3%A1,%20quero%20mais%20informa%C3%A7%C3%B5es!" target="_blank" class="text-neon-cyan hover:text-white transition-colors duration-300" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/traffke.ceo/" target="_blank" class="text-neon-cyan hover:text-white transition-colors duration-300" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/TraffkeS" target="_blank" class="text-neon-cyan hover:text-white transition-colors duration-300" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/traffke-seo-64531437a/" target="_blank" class="text-neon-cyan hover:text-white transition-colors duration-300" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Ícone do Chatbot que agora é um botão de WhatsApp -->
+    <div id="chat-icon-container">
+        <!-- O ícone do robô foi substituído por um ícone do WhatsApp para maior clareza -->
+        <a id="chat-icon" class="animate-pulse-blue" href="https://api.whatsapp.com/send?phone=5527999843190&text=Ol%C3%A1,%20quero%20mais%20informa%C3%A7%C3%B5es!" target="_blank" aria-label="WhatsApp Chat">
+            <i class="fab fa-whatsapp text-white text-3xl"></i>
+        </a>
+    </div>
+
+    <script>
+        // Lógica para as perguntas e respostas do FAQ
+        function toggleFaq(id) {
+            const answer = document.getElementById(id);
+            if (answer.style.display === 'none' || answer.style.display === '') {
+                answer.style.display = 'block';
+            } else {
+                answer.style.display = 'none';
+            }
+        }
+        
+        // Aplica a animação de entrada nas seções ao rolar a página
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.2 // A animação será acionada quando 20% da seção estiver visível
+        });
+
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Lógica da barra de busca
+        const searchInput = document.getElementById('search-input');
+        const searchMessage = document.getElementById('search-message');
+        const searchMessageText = document.getElementById('search-message-text');
+
+        searchInput.addEventListener('keydown', (event) => {
+            // Verifica se a tecla pressionada é 'Enter'
+            if (event.key === 'Enter') {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                
+                // Se o termo de busca estiver vazio, não faz nada
+                if (searchTerm === '') {
+                    return;
+                }
+
+                let found = false;
+                // Seleciona todas as seções que queremos que a busca encontre
+                const sections = document.querySelectorAll('.searchable-section');
+
+                sections.forEach(section => {
+                    const sectionText = section.textContent.toLowerCase();
+                    if (sectionText.includes(searchTerm)) {
+                        // Rola para a seção encontrada
+                        section.scrollIntoView({ behavior: 'smooth' });
+                        found = true;
+                        // Para o loop após encontrar a primeira correspondência
+                        return;
+                    }
+                });
+
+                if (!found) {
+                    // Exibe a mensagem de "não encontrado" se o loop terminar sem achar nada
+                    searchMessageText.textContent = `Nenhum resultado encontrado para "${searchInput.value}".`;
+                    searchMessage.style.display = 'block';
+                    // Esconde a mensagem após 3 segundos
+                    setTimeout(() => {
+                        searchMessage.style.display = 'none';
+                    }, 3000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
